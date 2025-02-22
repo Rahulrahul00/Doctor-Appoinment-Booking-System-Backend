@@ -2,6 +2,7 @@ import validator from "validator"
 import bcrypt from "bcrypt"
 import { v2 as cloudinary } from "cloudinary"
 import doctorModel from "../models/doctorsModel.js"
+import jwt from "jsonwebtoken"
 
 
 
@@ -63,4 +64,26 @@ const addDoctor = async (req, res) => {
     }
 }
 
-export {addDoctor}
+//  API for admin Login
+const loginAdmin = async (req, res) =>{
+    try{
+        const {email,password} = req.body
+
+        //checking admin email and password
+        if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+          const token = jwt.sign(email+password,process.env.JWT_SECRET)
+          res.json({success:true, token})
+
+        }else{
+            res.json({success:false, message:"Invaild credential"})
+        }
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
+}
+
+
+
+export {addDoctor, loginAdmin}
