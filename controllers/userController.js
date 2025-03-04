@@ -132,4 +132,5 @@ const updateProfile = async (req, res) => {
 
 
 
+
 export {registerUser, loginUser, getProfile, updateProfile}
