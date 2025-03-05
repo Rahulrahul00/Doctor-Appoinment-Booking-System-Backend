@@ -1,6 +1,6 @@
 import doctorModel from "../models/doctorsModel.js"
 
-
+//Doctor availablity
 const changeAvailablity = async (req, res) => {
     try{
         const {docId} = req.body
